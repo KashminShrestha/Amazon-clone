@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.css"
 import { isAuthenticated, signout } from './../api/userApi';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
   let navigate = useNavigate()
@@ -16,9 +17,10 @@ const Navbar = () => {
         }
       })
   }
+  const cart_items = useSelector(state => state.cart.cart_items.length)
   return (
     <>
-      <div className="container-fluid custon-navbar">
+      <div className="container-fluid mt-0 custon-navbar">
         <div className="row">
           <div className="col-3 ">
             <Link className="navbar-brand fs-2 fw-bold text-muted" to="/">Amazon</Link>
@@ -34,8 +36,14 @@ const Navbar = () => {
             {
               isAuthenticated().user ?
                 <>
-                  <Link to="/cart"><i className="bi bi-cart-check fs-2"></i></Link>
-                  <Link to="/logout"><i className="bi bi-arrow-in-left fs-2" onClick={handleSubmit}></i></Link>
+                  <Link to="/cart"><i className="bi bi-cart-check fs-2 position-relative">
+                    <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
+                      {
+                        cart_items
+                      }
+                      <span class="visually-hidden">unread messages</span>
+                    </span></i></Link>
+                  <Link to="/logout"><i className="bi bi-box-arrow-in-left fs-2" onClick={handleSubmit}></i></Link>
                 </>
                 :
                 <>

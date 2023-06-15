@@ -7,7 +7,7 @@ import thunk from "redux-thunk";
 
 
 const rootReducer = combineReducers({
-    cart: cartReducers()
+    cart: cartReducers
 })
 
 const initialData = {

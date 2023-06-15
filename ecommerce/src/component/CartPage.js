@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import Footer from './Footer';
+import { useSelector } from 'react-redux';
 
-const Carts = () => {
-    const cart_items = useState(state => state.cart.cart_items)
+const CartPage = () => {
+    const cart_items = useSelector(state => state.cart.cart_items)
+
     return (
         <>
             <div className="container-fluid text-center">
@@ -30,8 +32,8 @@ const Carts = () => {
                                             alt="..."
                                         />
                                     </td>
-                                    <td>2</td>
-                                    <td>Nrs.2,30,000</td>
+                                    <td>{p.quantity}</td>
+                                    <td>Nrs.{p.product_price}</td>
                                     <td>
                                         <Link
                                             href=""
@@ -68,4 +70,4 @@ const Carts = () => {
     );
 };
 
-export default Carts;
+export default CartPage;

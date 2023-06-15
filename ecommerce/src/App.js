@@ -4,7 +4,7 @@ import { store } from "./component/Reducers/store"
 import { Provider } from 'react-redux'
 
 
-const App = props => {
+const App = () => {
   return (
     <>
       <Provider store={store}>

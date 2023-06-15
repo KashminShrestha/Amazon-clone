@@ -26,6 +26,7 @@ import AdminUserUpdate from './component/admin/AdminUserUpdate'
 import AdminRoutes from './selectiveRoutes/adminRoutes'
 import UserRoutes from './selectiveRoutes/UserRoutes'
 import ProductDetails from './component/ProductDetails'
+import Cart from './page/Cart'
 
 
 
@@ -51,6 +52,7 @@ const Routess = () => {
 
           <Route path="/" element={<AdminRoutes />}>
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/admin/category" element={<Admincategory />} />
             <Route path="/admin/addcategory" element={<Addcategory />} />
             <Route path="/admin/category/updatecategory/:id" element={<UpdateCategory />} />

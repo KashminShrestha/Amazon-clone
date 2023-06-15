@@ -32,7 +32,7 @@ const ProductDetails = () => {
     const handleSubmit = e => {
         e.preventDefault()
         dispatch(add_item_to_cart(id, 1))
-        swal("congratulation!!", `${product.product_name} Added TO Cart`, "success")
+        swal("Congratulation!!", `${product.product_name} Added TO Cart`, "success")
 
     }
 
