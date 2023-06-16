@@ -1,7 +1,10 @@
 import { getproductdetail } from "../../api/adminApi"
-import { ADD_TO_CART } from "./cartConstant"
+import { ADD_TO_CART, REMOVE_FROM_CART } from "./cartConstant"
+import swal from "sweetalert";
+
 
 export const add_item_to_cart = (product, quantity) => async (dispatch, getState) => {
+
     let data = await getproductdetail(product)
     console.log(data)
     dispatch({
@@ -16,4 +19,13 @@ export const add_item_to_cart = (product, quantity) => async (dispatch, getState
         }
     })
     localStorage.setItem("cart_items", JSON.stringify(getState().cart.cart_items))
+}
+export const removefromcart = (id) => (dispatch, getState) => {
+    dispatch({
+        type: REMOVE_FROM_CART,
+        payload: id
+    })
+    localStorage.setItem("cart_items", JSON.stringify(getState().cart.cart_items))
+    swal("Ietem Deleted", "Deleted", "danger")
+
 }

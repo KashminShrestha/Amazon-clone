@@ -1,9 +1,31 @@
-import { Link } from 'react-router-dom';
-import Footer from './Footer';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { add_item_to_cart, removefromcart } from './Reducers/cartActions';
+import swal from 'sweetalert';
 
 const CartPage = () => {
+    const dispatch = useDispatch()
     const cart_items = useSelector(state => state.cart.cart_items)
+
+    const decreaseQuantity = (id, quantity) => e => {
+        e.preventDefault()
+        quantity--
+        if (quantity === 0) {
+            dispatch(removefromcart(id))
+        }
+        else {
+            dispatch(add_item_to_cart(id, quantity))
+        }
+    }
+    const increaseQuantity = (id, quantity, countinstock) => e => {
+        e.preventDefault()
+        quantity++
+        if (countinstock < quantity) {
+            swal('Error', "Quantity must be less than Count_In_Stock", "warning")
+        }
+        else {
+            dispatch(add_item_to_cart(id, quantity))
+        }
+    }
 
     return (
         <>
@@ -27,32 +49,26 @@ const CartPage = () => {
                                     <td>{p.product_name}</td>
                                     <td>
                                         <img
-                                            src="https://imgs.search.brave.com/I889g6gaXTxyFssvP-VHCLtY33Jfkds78E4UzvZyD4o/rs:fit:595:225:1/g:ce/aHR0cHM6Ly90c2U0/Lm1tLmJpbmcubmV0/L3RoP2lkPU9JUC41/RVpSSEdSMExnTDJJ/V2NRNTExVGtRSGFG/NSZwaWQ9QXBp"
+                                            src={`http://localhost:5000/${p.product_image}`}
                                             height="120px"
                                             alt="..."
                                         />
                                     </td>
-                                    <td>{p.quantity}</td>
-                                    <td>Nrs.{p.product_price}</td>
                                     <td>
-                                        <Link
-                                            href=""
-                                            className="btn btn-primary"
-                                            onClick={() => {
-                                                window.confirm("Are you sure");
-                                            }}
-                                        >
-                                            <i className="bx bx-edit"></i>
-                                        </Link>
-                                        <Link
-                                            href=""
-                                            className="btn btn-danger"
-                                            onClick={() => {
-                                                window.confirm("Are you sure");
-                                            }}
-                                        >
-                                            <i className="bx bx-trash"></i>
-                                        </Link>
+
+                                        <div className='btn btn-primary rounded-start-pill' onClick={decreaseQuantity(p.product, p.quantity)}>-</div>
+
+                                        <input className='form-control ' style={{ width: '40px', display: 'inline-block' }} type="text" value={p.quantity} readOnly />
+
+                                        <div className='btn btn-primary rounded-end-circle' onClick={increaseQuantity(p.product, p.quantity, p.count_in_stock)}>+</div>
+                                    </td>
+
+                                    <td>Nrs.{p.quantity * p.product_price}</td>
+                                    <td>
+                                        <button className='btn btn-danger' onClick={() => {
+                                            dispatch(removefromcart(p.product))
+
+                                        }}>Remove</button>
                                     </td>
                                 </tr>
 
