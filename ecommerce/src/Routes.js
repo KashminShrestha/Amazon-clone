@@ -27,6 +27,9 @@ import AdminRoutes from './selectiveRoutes/adminRoutes'
 import UserRoutes from './selectiveRoutes/UserRoutes'
 import ProductDetails from './component/ProductDetails'
 import Cart from './page/Cart'
+import Shipping from './component/Shipping'
+import Payment from './page/Payment'
+import PaymentSuccess from './page/PaymentSuccess'
 
 
 
@@ -51,6 +54,7 @@ const Routess = () => {
           <Route path="/product/:id" element={<ProductDetails />} />
 
           <Route path="/" element={<AdminRoutes />}>
+            <Route path="/addcategory" element={<Addcategorypage />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/admin/category" element={<Admincategory />} />
@@ -66,7 +70,12 @@ const Routess = () => {
 
 
           </Route>
-          <Route path="/addcategory" element={<Addcategorypage />} />
+          <Route path="/checkout" element={<Payment />} />
+
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/success" element={<PaymentSuccess />} />
+
+
 
           <Route path="/admin/user/updateuser/:id" element={<AdminUserUpdate />} />
 
