@@ -3,7 +3,7 @@ const { addtocategory, getalldetails, updatecategory, deletecategory, getcategor
 const { authorize } = require("../controller/UserController")
 const router = express.Router()
 
-router.post('/addcategory', addtocategory)
+router.post('/addcategory', authorize, addtocategory)
 router.get('/getcategory', getalldetails)
 router.put('/updatecategory/:id', updatecategory)
 router.delete('/deletecategory/:id', deletecategory)

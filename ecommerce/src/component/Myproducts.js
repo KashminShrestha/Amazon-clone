@@ -9,6 +9,8 @@ const Myproducts = () => {
   const [product, setProduct] = useState([])
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [search, setSearch] = useState('')
+  const [filterproduct, setFilterproduct] = useState([])
 
 
   useEffect(() => {
@@ -22,17 +24,30 @@ const Myproducts = () => {
         else {
           setProduct(data)
           console.log(data)
+          setFilterproduct(data)
 
 
         }
 
       })
 
-
   }, [])
+
+  const handlefilter = () => {
+    console.log(search)
+    setFilterproduct(product.filter(item => {
+      return search.toLowerCase() === "" ?
+        item : item.product_name.toLowerCase().includes(search.toLowerCase())
+    }))
+  }
   return (
 
     <>
+      <div className="container-fluid mt-4">
+        <div className="d-flex justify-content-end mb-4">
+          <input type="search" className='form-control w-25' placeholder='search' onChange={e => setSearch(e.target.value)} onKeyUp={handlefilter} />
+        </div>
+      </div>
       <div className="container-fluid mt-4">
         <div className="row">
           <div className="col-2">
@@ -118,26 +133,33 @@ const Myproducts = () => {
             <div className="row row-cols-1 row-cols-md-2 g-4">
 
               {
-                product && product.map((p, i) => {
-                  return <div className="col-lg-3">
-                    <div className="card" key={i}>
-                      <img src={`http://localhost:5000/${p.product_image}`} className="card-img-top custom-card-product" alt="..." />
-                      <div className="card-body">
-                        <h5 className="card-title">{p.product_name}</h5>
-                        {
-                          p.rating &&
-                          <ReactStars size={30} value={`${p.rating}`} />
-                        }
-                        <p className="card-text text-truncate">{p.product_description}</p>
-                        <Link to={`/product/${p._id}`}><div className="btn btn-primary form-control">See More</div></Link>
+                filterproduct.length > 0 ?
+                  <>{
+                    filterproduct && filterproduct.map((p, i) => {
+                      return <div className="col-lg-3">
+                        <div className="card" key={i}>
+                          <img src={`http://localhost:5000/${p.product_image}`} className="card-img-top custom-card-product" alt="..." />
+                          <div className="card-body">
+                            <h5 className="card-title">{p.product_name}</h5>
+                            {
+                              p.rating &&
+                              <ReactStars size={30} value={`${p.rating}`} />
+                            }
+                            <p className="card-text text-truncate">{p.product_description}</p>
+                            <Link to={`/product/${p._id}`}><div className="btn btn-primary form-control">See More</div></Link>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                })
+                    })
+                  }
+                  </> : <div className="alert alert-danger"></div>
+
               }
 
 
             </div>
+
+
 
           </div>
 

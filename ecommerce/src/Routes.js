@@ -56,7 +56,6 @@ const Routess = () => {
           <Route path="/" element={<AdminRoutes />}>
             <Route path="/addcategory" element={<Addcategorypage />} />
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/admin/category" element={<Admincategory />} />
             <Route path="/admin/addcategory" element={<Addcategory />} />
             <Route path="/admin/category/updatecategory/:id" element={<UpdateCategory />} />
@@ -64,20 +63,21 @@ const Routess = () => {
             <Route path="/admin/product" element={<Adminproduct />} />
             <Route path="/admin/updateproduct/:id" element={<UpdateProduct />} />
             <Route path="/admin/users" element={<AdminUser />} />
+            <Route path="/admin/user/updateuser/:id" element={<AdminUserUpdate />} />
 
           </Route>
           <Route path="/" element={<UserRoutes />}>
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Payment />} />
+            <Route path="/shipping" element={<Shipping />} />
+            <Route path="/success" element={<PaymentSuccess />} />
 
 
           </Route>
-          <Route path="/checkout" element={<Payment />} />
-
-          <Route path="/shipping" element={<Shipping />} />
-          <Route path="/success" element={<PaymentSuccess />} />
 
 
 
-          <Route path="/admin/user/updateuser/:id" element={<AdminUserUpdate />} />
+
 
 
 

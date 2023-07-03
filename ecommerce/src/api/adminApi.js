@@ -1,9 +1,10 @@
-export const addCategory = (category_name) => {
+export const addCategory = (category_name, token) => {
     let category = { category_name };
     return fetch(`http://localhost:5000/category/addcategory`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(category),
     })

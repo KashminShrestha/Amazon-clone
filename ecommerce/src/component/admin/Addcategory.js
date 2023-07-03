@@ -3,15 +3,17 @@ import Navbar from "../Navbar";
 import AdminSidebar from "./AdminSidebar";
 import Footer from "../Footer";
 import { addCategory } from "../../api/adminApi";
+import { isAuthenticated } from "../../api/userApi";
 
 const Addcategory = () => {
+    const token = isAuthenticated().token
     let [category_name, setText] = useState("");
     let [success, setSuccess] = useState("");
     let [error, setError] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(category_name);
-        addCategory(category_name).then((data) => {
+        addCategory(category_name, token).then((data) => {
             if (data.error) {
                 setError(data.error);
                 setSuccess(false);

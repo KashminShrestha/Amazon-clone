@@ -34,22 +34,33 @@ const Navbar = () => {
           <div className="col-3 d-flex justify-content-evenly">
 
             {
-              isAuthenticated().user ?
-                <>
-                  <Link to="/cart"><i className="bi bi-cart-check fs-2 position-relative">
-                    <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
-                      {
-                        cart_items
-                      }
-                      <span class="visually-hidden">unread messages</span>
-                    </span></i></Link>
-                  <Link to="/logout"><i className="bi bi-box-arrow-in-left fs-2" onClick={handleSubmit}></i></Link>
-                </>
-                :
-                <>
-                  <Link to="/signin"><i className="bi bi-arrow-in-right fs-2"></i></Link>
-                  <Link to="/register"><i className="bi bi-download fs-2"></i></Link>
-                </>
+              isAuthenticated().user && isAuthenticated().user.role === 0 &&
+              <>
+                <Link to="/cart"><i className="bi bi-cart-check fs-2 position-relative">
+                  <span class="position-absolute top-0 start-90 translate-middle badge rounded-pill bg-danger">
+                    {
+                      cart_items
+                    }
+                    <span class="visually-hidden">unread messages</span>
+                  </span></i></Link>
+                <Link to="/logout"><i className="bi bi-box-arrow-in-left fs-2" onClick={handleSubmit}></i></Link>
+              </>
+            }
+            {
+              !isAuthenticated().user &&
+
+              <>
+                <Link to="/signin"><i className="bi bi-arrow-in-right fs-2"></i></Link>
+                <Link to="/register"><i className="bi bi-download fs-2"></i></Link>
+              </>
+
+            }
+            {
+              isAuthenticated().user && isAuthenticated().user.role === 1 &&
+              <>
+                <Link to="/signin"><i className="bi bi-facebook fs-2"></i></Link>
+                <Link to="/register"><i className="bi bi-download fs-2"></i></Link>
+              </>
 
             }
 
